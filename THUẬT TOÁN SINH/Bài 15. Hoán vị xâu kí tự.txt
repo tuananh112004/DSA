@@ -1,0 +1,74 @@
+Cho một xâu kí tự S chỉ bao gồm các kí tự , hãy in ra các hoán vị của các kí tự khác nhau trong S theo thứ tự từ điển tăng dần.
+
+Input Format
+
+1 dòng chứa xâu S
+
+Constraints
+
+1<=len(S)<=10;
+
+Output Format
+
+In ra các hoán vị của xâu S
+
+Sample Input 0
+
+lqk
+Sample Output 0
+
+klq
+kql
+lkq
+lqk
+qkl
+qlk
+#include<bits/stdc++.h>
+using namespace std;
+string s,t="";
+set<char> se1;
+int a[100];
+int n;
+map<char,int> mp;
+void tao(){
+    cin >> s;
+    for(int i=0;i<s.size();i++){
+        mp[s[i]]++;
+        if(mp[s[i]]==1) t+=s[i];
+    }
+    n=t.size();
+    for(int i=1;i<=n;i++){
+        a[i]=i;
+    }
+}
+bool check=false;
+void sinh(){
+    int i=n;
+    while(i>=1&&a[i]>a[i+1]){
+        i--;
+    }
+    if(i==0) check=true;
+    else{
+
+        int j=n;
+        while(a[i]>a[j]) j--;
+        swap(a[i],a[j]);
+        reverse(a+i+1,a+n+1);
+        
+    }
+}
+
+
+int main(){
+    tao();
+    set<string>se;
+    while(!check){
+        string tmp="";
+        for(int i=1;i<=n;i++){
+            tmp+=t[a[i]-1];
+        }
+        se.insert(tmp);
+        sinh();
+    }
+    for(auto x:se) cout << x << endl;
+}

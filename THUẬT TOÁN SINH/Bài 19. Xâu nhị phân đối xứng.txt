@@ -1,0 +1,74 @@
+Nhiệm vụ của bạn là hãy liệt kê các xâu nhị phân thuận nghịch có độ dài n theo thứ tự từ điển.
+
+Input Format
+
+Dòng duy nhất chứa số nguyên dương n.
+
+Constraints
+
+1<=n<=15;
+
+Output Format
+
+In ra các xâu thuận nghịch theo thứ tự từ điển
+
+Sample Input 0
+
+4
+Sample Output 0
+
+0000
+0110
+1001
+1111
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int n,a[100];
+void tao(){
+    for(int i=1;i<=n;i++ ){
+        a[i]=0;
+    }
+}
+bool check1=false;
+void sinh(){
+    int i=n;
+    while(i>=1&&a[i]==1){
+        a[i]=0;
+        i--;
+    }
+    if(i==0) check1=true;
+    else{
+        a[i]=1;
+    }
+}
+bool check(string a){
+    string t=a;
+    reverse(a.begin(),a.end());
+    if(a==t) return true;
+    else return false;
+}
+int main(){
+    cin >> n;
+    tao();
+    vector<string> v;
+    while(!check1){
+        string tmp="";
+        for(int i=1;i<=n;i++){
+            tmp+=to_string(a[i]);
+        }
+        if(check(tmp)) v.push_back(tmp);
+        sinh();
+    }
+    for(auto x:v){
+        cout << x << endl;
+    }
+    
+    
+    
+    
+    
+    
+    
+}

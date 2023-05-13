@@ -1,0 +1,47 @@
+Trong một liên hoan phim, n bộ phim sẽ được chiếu. Bạn biết thời gian bắt đầu và kết thúc của mỗi bộ phim. Số lượng phim tối đa bạn có thể xem toàn bộ là bao nhiêu? Biết rằng nếu thời gian kết thúc của bộ phim trước bằng hoặc nhỏ hơn thời gian bắt đầu của bộ phim sau thì bạn có thể xem cả 2 phim này.
+
+Input Format
+
+Dòng nhập đầu tiên có số nguyên n: số lượng phim. Sau đó, có n dòng mô tả các bộ phim. Mỗi dòng có hai số nguyên a và b: thời gian bắt đầu và kết thúc của một bộ phim.
+
+Constraints
+
+1≤ n, m ≤2.10^5; 1≤ a, b ≤10^9
+
+Output Format
+
+In một số nguyên: số lượng phim tối đa.
+
+Sample Input 0
+
+3
+3 5
+4 9
+5 8
+Sample Output 0
+
+2
+#include<bits/stdc++.h>
+using namespace std;
+bool check(pair<int,int> a, pair<int,int> b){
+    return a.second<b.second;
+}
+int main(){
+    int n ; cin >> n;
+    vector<pair<int,int>> v;
+    while(n--){
+        pair<int,int> p;
+        cin >> p.first >>p.second;
+        v.push_back(p);
+    }
+    sort(v.begin(),v.end(),check);
+    int dem=1;
+    int tmp=v[0].second;
+    for(int i=1;i<v.size();i++){
+        if(v[i].first>=tmp){
+            tmp=v[i].second;
+            dem++;
+        }
+    }
+    cout << dem;
+}

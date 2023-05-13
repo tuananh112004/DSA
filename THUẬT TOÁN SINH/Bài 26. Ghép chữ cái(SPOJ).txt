@@ -1,0 +1,93 @@
+rong 8 chữ cái Tiếng Anh đầu tiên (ABCDEFGH) thì có 2 nguyên âm là ‘A’, ‘E’, còn lại là phụ âm. Người ta muốn ghép các chữ cái bắt đầu từ chữ cái ‘A’ cho đến chữ cái c (‘D’ <= c <= ‘H’) sao cho mỗi chữ cái được sử dụng đúng một lần và xâu kết quả không có nguyên âm nào bị kẹp giữa bởi hai phụ âm. Hãy liệt kê các xâu thỏa mãn theo thứ tự từ điển.
+
+Input Format
+
+Chỉ có một dòng ghi chữ cái c
+
+Constraints
+
+'D' <= c <= 'H'
+
+Output Format
+
+Liệt kê các xâu thỏa mãn, mỗi xâu trên một dòng.
+
+Sample Input 0
+
+D
+Sample Output 0
+
+ABCD
+ABDC
+ACBD
+ACDB
+ADBC
+ADCB
+BCDA
+BDCA
+CBDA
+CDBA
+DBCA
+DCBA
+#include<bits/stdc++.h>
+using namespace std;
+int a[100];
+char x;
+int n;
+void tao(){
+     n=x-64;
+    vector<char> v;
+    for(int i=1;i<=n;i++){
+        a[i]=i;
+        v.push_back((char)(i+64));
+    }
+}
+bool check=false;
+void sinh(){
+    int i=n;
+    while(i>=1&&a[i]>a[i+1]){
+        i--;
+    }
+    if(i==0) check =true;
+    else{
+        int j=n;
+        while(a[i]>a[j])j--;
+        swap(a[i],a[j]);
+        reverse(a+i+1,a+n+1);
+    }
+}
+bool kt(string a){
+    int x=a.size()-1;
+    int it=a.find('A');
+    auto tam=it;
+    it--; tam++;
+    if(a[it]==' '||a[tam]==' '||a[it]=='E'||a[tam]=='E') return true;
+    else return false;
+}
+bool kt2(string b){
+    int x=b.size()-1;
+    int it=b.find('E');
+    auto tam=it;
+    it--; tam++;
+    if(b[it]==' '||b[tam]==' '||b[it]=='A'||b[tam]=='A') return true;
+    else return false;
+}
+int main(){
+    cin >> x;
+    tao();
+    vector<string> v1;
+    while(!check){
+        string tmp=" ";
+        for(int i=1;i<=n;i++){
+            tmp+=((char)(64+a[i]));
+        }
+        tmp+=" ";
+        if(kt(tmp)==true&&kt2(tmp)==true){
+            tmp.erase(0,1);
+            v1.push_back(tmp);
+        }
+        
+        sinh();
+    }
+    for(auto x:v1) cout<< x << endl;
+}

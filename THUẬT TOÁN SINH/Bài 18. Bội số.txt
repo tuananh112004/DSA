@@ -1,0 +1,83 @@
+Một số được coi là số đẹp nếu nó chỉ bao gồm 2 số là 8 và 0. Bạn được cấp một số nguyên dương X, nhiệm vụ của bạn là tìm bội dương nhỏ nhất của X thỏa mãn bội này là số đẹp.
+
+Input Format
+
+Dòng đầu tiên là số bộ test T. T dòng tiếp theo mỗi dòng là một số nguyên dương N.
+
+Constraints
+
+1<=T<=300; 1<=N<=300;
+
+Output Format
+
+Mỗi test in kết quả trên 1 dòng
+
+Sample Input 0
+
+6
+240
+19
+55
+47
+287
+247
+Sample Output 0
+
+8880
+88008
+880
+80088
+8088808
+8000000008
+#include<bits/stdc++.h>
+using namespace std;
+long long a[500];
+long long cnt[500];
+int q,n;
+void tao(){
+    for(int i=1;i<=19;i++){
+        a[i]=0;
+    }
+}
+bool check=false;
+void sinh(){
+    int i=19;
+    while(i>=1&&a[i]==8){
+        a[i]=0;
+        i--;
+    }
+    if(i==0){
+        check=true;
+    }
+    else{
+        a[i]=8;
+    }
+}
+int main(){
+    cin >> q ;
+    tao();
+    vector<string> v;
+    map<int,long long> mp;
+    while(!check){
+        string tmp="";
+        for(int i=1;i<=19;i++){
+            tmp+=to_string(a[i]);
+        }
+        v.push_back(tmp);
+        sinh();
+    }
+    for(int i=1;i<=300;i++){
+        for(auto x:v){
+            long long tam=stoll(x);
+            if(tam>0&&tam%i==0){
+                mp[i]=tam;
+                break;
+            }
+        }
+        
+    }
+    while(q--){
+        int x; cin >> x;
+        cout << mp[x]<< endl;
+    }
+}

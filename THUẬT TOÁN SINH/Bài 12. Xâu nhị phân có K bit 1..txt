@@ -1,0 +1,78 @@
+Cho số nguyên dương N và K, nhiệm vụ của bạn là liệt kê các xâu nhị phân có độ dài N và có K bit 1 theo thứ tự từ điển tăng dần. Sau đó tiếp tục liệt kê các xâu nhị phân mà chỉ có duy nhất K bit 1 liên tiếp.
+
+Input Format
+
+1 dòng chứa 2 số nguyên dương N và K.
+
+Constraints
+
+1<=K<=N<=15;
+
+Output Format
+
+Dòng đầu tiên in ra các xâu nhị phân có K bit 1. Dòng thứ 2 in ra các xâu nhị phân có duy nhất K bit 1 liên tiếp.
+
+Sample Input 0
+
+3 2
+Sample Output 0
+
+011 101 110 
+011 110 
+#include<bits/stdc++.h>
+using namespace std;
+int n,k,a[100];
+void tao(){
+    for(int i=1;i<=n;i++){
+        a[i]=0;
+    }
+}
+int cnt1[1000];
+bool check1= false;
+void sinh(){
+    int i=n;
+    while(i>=1&&a[i]==1){
+        a[i]=0;
+        i--;
+    }
+    if(i==0) check1=true;
+    else{
+        a[i]=1;
+    }
+}
+bool check(){
+    int cnt=0,res=0;
+    for(int i=1;i<=n;i++){
+        if(a[i]==1){
+            ++cnt;
+        }
+        else cnt=0;
+        if(cnt>res) res=cnt;
+        else if(cnt==res&&res==k) return false;
+    }
+    return res==k;
+}
+int main(){
+    cin >> n >> k;
+    tao();
+    vector<string> v1,v2;
+    while(!check1){
+        int cnt=0;
+        string tmp="";
+        for(int i=1;i<=n;i++){
+            if(a[i]==1) {
+                cnt++;
+            }
+            tmp+=to_string(a[i]);        
+        }
+        
+        if(cnt==k) v1.push_back(tmp);
+        if(check()) v2.push_back(tmp);
+        sinh();
+    }
+    sort(v1.begin(),v1.end());
+    for(auto x:v1) cout << x <<" ";
+    cout << endl;
+    for(auto x:v2) cout << x <<" ";
+    
+}

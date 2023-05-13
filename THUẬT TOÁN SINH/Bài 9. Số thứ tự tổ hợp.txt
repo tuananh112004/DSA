@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n,k,a[1000];
+void tao(){
+    for(int i=1;i<=k;i++){
+        a[i]=i;
+    }
+}
+bool check=false;
+void sinh(){
+    int i=k;
+    while(i>=1&&a[i]==n-k+i){
+        i--;
+    }
+    if(i==0) check=true;
+    else{
+        a[i]++;
+        for(int j=i+1;j<=k;j++){
+            a[j]=a[j-1]+1;
+        }
+    }
+}
+
+int main(){
+    cin >> n >> k;
+    int tmp[n+1];
+    tao();
+    for(int i=1;i<=k;i++){
+        cin >> tmp[i];
+    }
+    int dem=0;
+    int tmp1;
+    while(!check){
+        int x=1;
+        bool kt=true;
+        while(x<=k){
+            if(tmp[x]!=a[x]){
+                kt=false; break;
+            }
+            else{
+                x++;
+            }
+        }
+        dem++;
+        if(kt){
+            tmp1=dem;;
+        }
+        sinh();
+    }
+    cout << dem-tmp1+1;
+}
